@@ -60,8 +60,12 @@
 
         <script type="text/javascript">
            // app.initialize();
+         //Inserir IP do servidor
+         var socket = io.connect('http://192.168.1.107:1337');
 
-
+         socket.on('connect', function (){
+            alert('Connection Success!');
+         });
 
      $(".submit").bind( "click", function(event, ui) {
             var keySession = $('.input-session-key').find('input[name="input-key-session"]');
@@ -69,18 +73,11 @@
                 alert('Saporra tá vazia!');
                 keySession.focus();
             }else
-
-            var socket = io.connect('http://10.10.8.16:1337');
-
-            socket.on("connect", function () {
-             alert('Success Connection Socket!'+keySession.val());
-             var key = keySession.val();
-             var url = '/listeners/join';
-
-             socket.get(url, {keySession:key}, function (response){
-                    alert('Response: '+response.msg);
-                });
-            });
+                 var key = $.trim(keySession.val());
+                 var url = '/listeners/join';
+                 socket.get(url, {keySession:key}, function (response){
+                        alert('Response: '+response.msg);
+                 });
       });
 
         </script>
