@@ -20,46 +20,33 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/sails.io.js"></script>
-        <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-    <div data-role="header">
-        <h1>Mobilectures</h1>
-    </div>
-    <div role="main" class="ui-content">
-        <div class="ui-grid-b my-breakpoint input-session-key">
-            <form id="formJoinSession">
-                <label for="input-key-session">Session Key:</label>
-                <input name="input-key-session" class="error" id="input-key-session" placeholder="Chave de Sessão"  type="number">
-                <div class="ui-grid-solo">
-                    <div class="ui-block-a submit"><button type="button" data-theme="b">Join</button></div>
-                </div>
-            </form>
-            <a href="otherpage.html" data-transition="slidefade">I'll pop</a>
-            <img src="./img/logo.png" class="image-logo"/>
-        </div>
-    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/sails.io.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
+    <title>Hello World</title>
+</head>
+<body>
+<div data-role="header">
+    <h1>Other Page</h1>
+</div>
+<div class="ui-grid-solo">
+                <div class="ui-block-a submit"><button type="button" data-theme="b">Join</button></div>
+</div>
 
+<a href="index.html" data-transition="slidefade" data-direction="reverse">I'll pop</a>
 
-      <!--
-<p id="deviceProperties">Loading device properties...</p>
-         -->
-
-        <script type="text/javascript">
+<script type="text/javascript">
            // app.initialize();
          //Inserir IP do servidor
          var socket = io.connect('http://192.168.1.107:1337');
@@ -80,6 +67,7 @@
 
          $(".submit").bind( "click", function(event, ui) {
 
+
                 /*
                 var keySession = $('.input-session-key').find('input[name="input-key-session"]');
                 if($.trim(keySession.val()) == ""){
@@ -95,5 +83,5 @@
           });
 
         </script>
-    </body>
+</body>
 </html>
