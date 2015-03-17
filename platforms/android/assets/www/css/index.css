@@ -97,10 +97,6 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 }
 
-.input-session-key {
-    margin-top:15%;
-}
-
 .error
 {
  border:1px solid red;

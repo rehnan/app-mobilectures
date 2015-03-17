@@ -1,0 +1,27 @@
+
+<script type="text/javascript" src="js/socket.io.connection.js"></script>
+<script type="text/javascript">
+         $(document).ready(function() {
+         // app.initialize();
+
+
+         $(".submit").bind( "click", function(event, ui) {
+            $.mobile.changePage('.dialog','pop',false,true)
+                /*
+                var keySession = $('.input-session-key').find('input[name="input-key-session"]');
+                if($.trim(keySession.val()) == ""){
+                    alert('Saporra tá vazia!');
+                    keySession.focus();
+                }else
+                     var key = $.trim(keySession.val());
+                     var url = '/listeners/join';
+                     socket.get(url, {keySession:key}, function (response){
+                            alert('Response: '+response.msg);
+                     });
+                     */
+          });
+
+          });
+        </script>
+</body>
+</html>

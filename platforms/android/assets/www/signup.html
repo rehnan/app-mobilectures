@@ -37,51 +37,48 @@
     <title>Hello World</title>
 </head>
 <body>
-<div data-role="header">
-    <h1>Other Page</h1>
+<div data-role="page" id="signup">
+    <div data-role="header">
+        <h3>rehnan@live.com</h3>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="index.html"> Join </a></li>
+                <li><a href="join.html" data-transition="flip" class="ui-btn-active ui-state-persist"> Signup </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <form id="form-signup">
+            <label for="name">Nome:</label>
+            <input  name="name" id="name" placeholder="Informe seu nome">
+            <label for="email">Email:</label>
+            <input  name="email" id="email" placeholder="Informe seu email">
+            <label for="password">Password:</label>
+            <input  name="password" id="password" placeholder="Informe sua senha">
+            <div class="ui-grid-solo">
+                <div class="ui-block-a"><button type="button" id="submit" >Signup</button></div>
+            </div>
+        </form>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h1>Mobilectures</h1>
+    </div>
 </div>
-<div class="ui-grid-solo">
-                <div class="ui-block-a submit"><button type="button" data-theme="b">Join</button></div>
-</div>
+<script >
+ $(document).ready(function() {
+    alert('Welcome to de Signup');
+  $('#submit').click(function(){
+     alert('hi');
+      /*
+    var name = $('#form-signup').find('input[name="name"]').val();
+    var email = $('#form-signup').find('input[name="email"]').val();
+     socket.post('https://mobilectures.herokuapp.com/speaker/listeners/create', {name:name, email:email}, function (data, jwres){
+      });
+      */
+  });
 
-<a href="index.html" data-transition="slidefade" data-direction="reverse">I'll pop</a>
-
-<script type="text/javascript">
-           // app.initialize();
-         //Inserir IP do servidor
-         var socket = io.connect('http://192.168.1.107:1337');
-
-         socket.on('connect', function (){
-            socket.post('/listeners', {name:'Timmy Mendez', email:'timmymendez@live.com', mac:'dskfjhd233223'}, function (resData) {
-              alert('Name: '+resData.name);
-            });
-
-            socket.put('/listeners', {name:'Timmy Mendez', email:'timmymendez@live.com', mac:'dskfjhd233223'}, function (resData) {
-              alert('Name: '+resData.name);
-            });
-
-            socket.delete('/listeners', {id:'Timmy Mendez', email:'timmymendez@live.com', mac:'dskfjhd233223'}, function (resData) {
-              alert('Name: '+resData.name);
-            });
-         });
-
-         $(".submit").bind( "click", function(event, ui) {
-
-
-                /*
-                var keySession = $('.input-session-key').find('input[name="input-key-session"]');
-                if($.trim(keySession.val()) == ""){
-                    alert('Saporra tá vazia!');
-                    keySession.focus();
-                }else
-                     var key = $.trim(keySession.val());
-                     var url = '/listeners/join';
-                     socket.get(url, {keySession:key}, function (response){
-                            alert('Response: '+response.msg);
-                     });
-                     */
-          });
-
-        </script>
+});
+</script>
 </body>
 </html>
