@@ -1,9 +1,9 @@
  //Inserir IP do servidor
  //Produção
-var socket = io.connect('https://mobilectures.herokuapp.com');
+//var socket = io.connect('https://mobilectures.herokuapp.com');
 
  //Development
-//var socket = io.connect('192.168.1.10:1337');
+var socket = io.connect('172.16.133.212:1337');
 
 socket.on('connect', function (){
     $(".connection-info").text("socket connected");

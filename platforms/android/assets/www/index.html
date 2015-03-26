@@ -121,13 +121,12 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-     //app.initialize();
+     app.initialize();
      //Signout event click
       $(".signout").bind("click", function(){
              u_id = window.localStorage.getItem("u_id");
-             alert(u_id);
-             socket.get('/speaker/listeners/leave/'+u_id, function (data, jwres){
-                 alert('Logout!');
+             session_key = window.localStorage.getItem("session_key");
+             socket.post('/speaker/listeners/leave', {sessionKey:session_key, userId:u_id}, function (data, jwres){
              });
               $.mobile.changePage("#page-join");
       });
@@ -163,14 +162,18 @@ $(document).ready(function() {
 
      //Método para submit do login
      $(".submit-signin").bind("click", function(event, ui) {
+           var keySession =  $.trim($('.input-session-key').find('input[name="input-key-session"]').val());
            var user_email = $.trim($('#form-signin').find('input[name="user_email"]').val());
            var user_password = $.trim($('#form-signin').find('input[name="user_password"]').val());
+          alert(keySession);
            if((user_email == "") || (user_password == "")){
                     return false;
             }else{
-            socket.get('/speaker/listeners/join', {email:user_email, password:user_password}, function (response, jwres){
+
+            socket.get('/speaker/listeners/join', {email:user_email, password:user_password, keySession:keySession}, function (response, jwres){
                      switch (response.authorization) {
                         case 'true':
+                             window.localStorage.setItem("session_key", response.session);
                              window.localStorage.setItem("u_id", response.listener.id);
                              window.localStorage.setItem("u_email", response.listener.email);
                              window.localStorage.setItem("u_name", response.listener.name);
