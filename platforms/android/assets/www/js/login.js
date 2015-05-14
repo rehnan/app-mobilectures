@@ -39,7 +39,7 @@ ml.login = {
 
    sign_in: function () {
       $('#form-sign-in').submit(function() {
-          alert('KJSHDJKAS');
+
          var params = $(this).serializeJSON();
          var url = ml.config.url + '/api/listeners/join'
 
