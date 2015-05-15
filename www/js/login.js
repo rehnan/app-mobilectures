@@ -8,7 +8,6 @@ ml.login = {
       ml.login.sign_out();
    },
 
-
    sign_up: function () {
       $('#form-sign-up').submit(function() {
 
@@ -66,6 +65,7 @@ ml.login = {
          socket.get(url, {}, function (data, jwres) {
             console.log(data);
             console.log(jwres);
+            ml.session.setItem("listener", null);
             $.mobile.changePage('#page-sign-in');
             ml.flash.info("#page-sign-in", "Obrigado por participar desta sessão!");
          });

@@ -3,11 +3,45 @@ $(document).ready(function () { ml.login.load(); });
 ml.login = {
 
    load: function () {
+      //ml.login.pagebeforecreate();
+      ml.login.beforeAction();
       ml.login.sign_up();
       ml.login.sign_in();
       ml.login.sign_out();
    },
 
+
+   beforeAction: function () {
+      $(document).bind("pagebeforechange", function ( event , data ) {
+         alert(data.absUrl);
+         if(ml.session.getItem("authorization") === 'false') {
+            data.toPage = 'http://localhost/app-mobilectures/www/#page-sign-in';
+            console.log("Offline");
+         } else {
+            data.toPage = 'http://localhost/app-mobilectures/www/#page-logged-1';
+            console.log("Online");
+         }
+        
+        //return $.mobile.changePage("#page-sign-in");
+
+      });
+      
+      /*
+      $("div[data-role='page']").bind("pagecontainerbeforechange", function(event, ui){
+         event.preventDefault();
+         alert(event);
+         var page = $(this);
+         alert(ml.session.getItem("authorization"));
+         if(ml.session.getItem("authorization") === 'false' && page.attr('id') === 'page-sign-up' || page.attr('id') === 'page-sign-in') {
+            return $.mobile.changePage('#'+page.attr('id'));
+         } else if (ml.session.getItem("authorization") === 'true') {
+            return $.mobile.changePage('#'+page.attr('id'));
+         } else {
+            return $.mobile.changePage('#page-sign-in');
+         }
+      });
+      */
+   },
 
    sign_up: function () {
       $('#form-sign-up').submit(function() {
@@ -66,6 +100,7 @@ ml.login = {
          socket.get(url, {}, function (data, jwres) {
             console.log(data);
             console.log(jwres);
+            ml.session.setItem("listener", null);
             $.mobile.changePage('#page-sign-in');
             ml.flash.info("#page-sign-in", "Obrigado por participar desta sessão!");
          });
