@@ -5,5 +5,19 @@ ml.config = { url: 'http://localhost:1337'};
 ml.session = window.sessionStorage;
 ml.session.setItem("listener", null);
 ml.session.setItem("authorization", false);
+ml.session.setItem("polls-list", JSON.stringify(new Array()));
+
+
+
+/*
+window.localStorage.setItem("key", "value");
+var keyname = window.localStorage.key(i);
+// keyname is now equal to "key"
+var value = window.localStorage.getItem("key");
+// value is now equal to "value"
+window.localStorage.removeItem("key");
+window.localStorage.setItem("key2", "value2");
+window.localStorage.clear();
+*/
 
 

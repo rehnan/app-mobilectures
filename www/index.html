@@ -18,179 +18,236 @@
      KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/vendor/jquery.mobile-1.4.4.min.css">
-        <link rel="stylesheet" href="css/application.css">
+  -->
+  <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/vendor/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/application.css">
 
-        <script src="js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="js/vendor/jquery.mobile-1.4.5.min.js"></script>
-        <script src="js/vendor/moment-with-locales.js"></script>
-        <script src="js/vendor/jquery.serializejson.min.js"></script>
-        <script src="js/vendor/sails.io.js"></script>
-	
-        <script src="js/application.js"></script>
-        <script src="js/socket.io.connect.js"></script>
-        <script src="js/lib/flash.js"></script>
-        <script src="js/lib/forms.js"></script>
-        <script src="js/routes.js"></script>
-        <script src="js/login.js"></script>
-        <script src="js/doubts.js"></script>
-        <title>Mobilectures</title>
-    </head>
-    <body>
-        <!-- ############################### Sign in Page #################################### -->
-  <div data-role="page" id="page-sign-in">
+    <script src="js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="js/vendor/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/vendor/moment-with-locales.js"></script>
+    <script src="js/vendor/jquery.serializejson.min.js"></script>
+    <script src="js/vendor/sails.io.js"></script>
 
-    <div data-role="header">
-      <h1>Mobile Lectures</h1>
-      <div data-role="navbar">
-        <ul>
-          <li><a href="#page-sign-in" class="ui-btn-active ui-state-persist" >Sign in</a></li>
-          <li><a href="#page-sign-up">Sign up</a></li>
-        </ul>
-      </div>
-    </div>
+    <script src="js/application.js"></script>
+    <script src="js/polls.js"></script>
+    <script src="js/socket.io.connect.js"></script>
+    <script src="js/lib/flash.js"></script>
+    <script src="js/lib/forms.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/doubts.js"></script>
 
-    <div data-role="main" class="ui-content">
-      <form id="form-sign-in">
 
-        <label> Chave da sessão </label>
-        <input type="text"value="123456" id="session_id" name="session_id">
+    
+    <title>Mobilectures</title>
+  </head>
+  <body>
 
-        <label> Email </label>
-        <input type="email" value="rehnancarolino@live.com" id="user_email" name="user[email]">
 
-        <label> Senha </label>
-        <input value="abc123" type="password" id="user_password" name="user[password]" >
 
-        <input type="submit" value="Login" id="btn_login">
-      </form>
-    </div>
+    <!-- ############################### Sign in Page #################################### -->
+    <div data-role="page" id="page-sign-in" class="page">
 
-  </div>
-
-  <!-- ############################## Sign up Page ##################################### -->
-
-  <div data-role="page" id="page-sign-up">
-
-    <div data-role="header">
-      <h1>Mobile Lectures</h1>
-      <div data-role="navbar">
-        <ul>
-          <li><a href="#page-sign-in">Sign in</a></li>
-          <li><a href="#page-sign-up" class="ui-btn-active ui-state-persist">Sign up</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div data-role="main" class="ui-content">
-      <form id="form-sign-up" novalidate>
-
-        <div class="form-group">
-          <label> Nome </label>
-          <input type="text" id="user_name" name="user[name]">
+      <div data-role="header">
+        <h1>Mobile Lectures</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#page-sign-in" class="ui-btn-active ui-state-persist" >Sign in</a></li>
+            <li><a href="#page-sign-up">Sign up</a></li>
+          </ul>
         </div>
+      </div>
 
-        <div class="form-group">
+      <div data-role="main" class="ui-content">
+        <form id="form-sign-in">
+
+          <label> Chave da sessão </label>
+          <input type="text"value="123456" id="session_id" name="session_id">
+
           <label> Email </label>
-          <input type="email" id="user_email" name="user[email]">
-        </div>
+          <input type="email" value="rehnancarolino@live.com" id="user_email" name="user[email]">
 
-        <div class="form-group">
           <label> Senha </label>
-          <input type="password" id="user_password" name="user[password]" >
-        </div>
+          <input value="abc123" type="password" id="user_password" name="user[password]" >
 
-        <input type="submit" value="Sign up" id="btn-sign-up">
-      </form>
-    </div>
-
-  </div>
-
-  <!-- ############################# Index Page ###################################### -->
-
-  <div data-role="page" id="page-logged-1">
-    <div data-role="header">
-      <h1>Mobile Lectures</h1>
-      <div data-role="navbar">
-        <ul>
-          <li><a href="#doubt" >Dúvidas</a></li>
-          <li><a href="#" >Enquetes</a></li>
-          <li><a href="#" >Quizzes</a></li>
-          <li><a href="#sign-out" >Sair</a></li>
-        </ul>
+          <input type="submit" value="Login" id="btn_login">
+        </form>
       </div>
+
     </div>
 
-    <div data-role="main" class="ui-content">
-    </div>
+    <!-- ############################## Sign up Page ##################################### -->
 
-    <div data-role="footer">
-      <h1>UTFPR-GP-APPs</h1>
-    </div>
-  </div> 
+    <div data-role="page" id="page-sign-up" class="page">
 
-  <!-- ############################# Doubt Page ###################################### -->
-
-  <div data-role="page" id="page-doubt">
-    <div data-role="header">
-      <h1>Dúvidas</h1>
-      <div data-role="navbar">
-        <ul>
-          <li><a href="#doubt">Dúvidas</a></li>
-          <li><a href="#" >Enquetes</a></li>
-          <li><a href="#" >Quizzes</a></li>
-          <li><a href="#sign-out" >Sair</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div data-role="main" class="ui-content">
-      <form id="form-doubt" novalidate>
-        <div class="form-group">
-           <label for="doubt_description">Qual é sua dúvida?</label>
-           <textarea id="doubt_description" name="doubt[description]" cols="40" rows="8" placeholder="Descreve aqui sua dúvida..."></textarea>
+      <div data-role="header">
+        <h1>Mobile Lectures</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#page-sign-in">Sign in</a></li>
+            <li><a href="#page-sign-up" class="ui-btn-active ui-state-persist">Sign up</a></li>
+          </ul>
         </div>
+      </div>
 
-        <div class="form-group">
+      <div data-role="main" class="ui-content">
+        <form id="form-sign-up" novalidate>
+
+          <div class="form-group">
+            <label> Nome </label>
+            <input type="text" id="user_name" name="user[name]">
+          </div>
+
+          <div class="form-group">
+            <label> Email </label>
+            <input type="email" id="user_email" name="user[email]">
+          </div>
+
+          <div class="form-group">
+            <label> Senha </label>
+            <input type="password" id="user_password" name="user[password]" >
+          </div>
+
+          <input type="submit" value="Sign up" id="btn-sign-up">
+        </form>
+      </div>
+
+    </div>
+
+    <!-- ############################# Index Page ###################################### -->
+
+    <div data-role="page" id="page-logged-1" class="page">
+      <div data-role="header">
+        <h1>Mobile Lectures</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#doubt" >Dúvidas</a></li>
+            <li><a href="#poll" >Enquetes<span class="ui-li-count ui-body-b badge-polls"></span></a></li>
+            <li><a href="#" >Quizzes</a></li>
+            <li><a href="#sign-out" >Sair</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div data-role="main" class="ui-content">
+      </div>
+
+      <div data-role="footer">
+        <h1>UTFPR-GP-APPs</h1>
+      </div>
+    </div> 
+
+    <!-- ############################# Doubt Page ###################################### -->
+
+    <div data-role="page" id="page-doubt" class="page">
+      <div data-role="header">
+        <h1>Dúvidas</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#doubt">Dúvidas</a></li>
+            <li><a href="#poll" >Enquetes<span class="ui-li-count ui-body-a badge-polls"></span></a></li>
+            <li><a href="#" >Quizzes</a></li>
+            <li><a href="#sign-out" >Sair</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <form id="form-doubt" novalidate>
+          <div class="form-group">
+             <label for="doubt_description">Qual é sua dúvida?</label>
+             <textarea id="doubt_description" name="doubt[description]" cols="40" rows="8" placeholder="Descreve aqui sua dúvida..."></textarea>
+          </div>
+
+
           <fieldset data-role="controlgroup" data-type="horizontal">
                     <legend>Modo Anônimo:</legend>
-                    <label for="doubt_private_true">Sim</label>
+            <label for="doubt_private_true">Sim</label>
                     <input type="radio" name="doubt[private]" id="doubt_private_true" value="true">
-                    <label for="doubt_private">Não</label>
-                    <input type="radio" name="doubt[private]" id="doubt_private" value="false">
+            <label for="doubt_private">Não</label>
+                    <input type="radio" name="doubt[private]" id="doubt_private" value="false" checked=checked>
           </fieldset>
+          <button id="send_doubt">Enviar Dúvida </button>
+        </form>
+
+        <table data-role="table" id="doubts-table" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b">
+                   <thead>
+                       <tr class="ui-bar-d">
+                           <th>Dúvida</th>
+                           <th>Descrição</th>
+                           <th>Data</th>
+                           <th>Respondida</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <div data-role="footer">
+        <h1>UTFPR-GP-APPs</h1>
+      </div>
+    </div> 
+
+    <!-- ############################# End Doubt Page ###################################### -->
+
+    <!-- ############################# Poll Page ###################################### -->
+
+    <div data-role="page" id="page-poll" class="page">
+      <div data-role="header">
+        <h1>Enquetes</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#doubt">Dúvidas</a></li>
+            <li><a href="#poll" >Enquetes<span class="ui-li-count ui-body-b badge-polls"></span></a></li>
+            <li><a href="#" >Quizzes</a></li>
+            <li><a href="#sign-out" >Sair</a></li>
+          </ul>
         </div>
-        <button id="send_doubt">Enviar Dúvida </button>
+      </div>
+
+      <div data-role="main" class="ui-content">
+        <form id="form-poll" novalidate>
+         <div class="form-group">
+
+          <div id="poll-info" role="main" class="ui-content jqm-content jqm-fullwidth">
+            
+          </div>
+
+          <div id="poll-question" role="main" class="ui-content jqm-content jqm-fullwidth">
+          </div>
+
+          <div id="poll-alternatives">
+           
+          </div>
+        </div>
       </form>
-
-      <table data-role="table" id="doubts-table" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b">
-         <thead>
-           <tr class="ui-bar-d">
-             <th>Dúvida</th>
-             <th>Descrição</th>
-             <th>Data</th>
-             <th>Respondida</th>
-           </tr>
-         </thead>
-         <tbody>
-         </tbody>
-      </table>
-    </div>
-
+    </div> 
     <div data-role="footer">
       <h1>UTFPR-GP-APPs</h1>
     </div>
   </div> 
+  <!-- ############################# End Polls Page ###################################### -->
+
+  <!-- ############################### 404 Page #################################### -->
+  <div data-role="page" id="page-404" class="page">
+    <div data-role="header"> <h1>404 - Page not found!</h1> </div>
+    <div data-role="main" class="ui-content"> <h1> Error 404 - Page not found! </h1> </div>
+    <div data-role="footer"> <h1>UTFPR-GP-APPs</h1> </div>
+  </div>
+  <!-- ############################## 404 Page ##################################### -->
+
+  <div id="loading" class="show-page-loading-msg" data-theme="b" data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class="ui-bar ui-shadow ui-overlay-d ui-corner-all"><img src="../_assets/img/jquery-logo.png"><h2>is loading for you ...</h2></span>" data-iconpos="right">
+  </div>
 </body>
 </html>
-       
-       
-   
+
+
+
