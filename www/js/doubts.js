@@ -21,7 +21,7 @@ ml.doubts = {
          var doubts = data.doubts;
          $.each(doubts, function(index, doubt){
            console.log(doubt);
-           $('#doubts-table tbody').append("<tr><td>"+(index+1)+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>");
+           $('#doubts-table tbody').append("<tr><td>"+(index+1)+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>").enhanceWithin();;
         })
       });
  });
@@ -59,7 +59,7 @@ formatDate: function(date) {
                    var doubt = data.doubt;
                    var index = data.index;
 
-                   $('#doubts-table tbody').append("<tr><td>"+index+"</td><td>"+doubt.description+"</td><td>"+doubt.createdAt+"</td><td>"+doubt.answered+"</td></tr>");
+                   $('#doubts-table tbody').append("<tr><td>"+index+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>").enhanceWithin();
                    console.log(data.doubt.id);
                    ml.flash.success('#page-doubt', 'Dúvida enviada com sucesso! '+data.doubt.id);
              //ml.flash.clear();

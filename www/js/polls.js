@@ -7,64 +7,109 @@ ml.polls = {
 		ml.polls.add(null);
 		ml.polls.remove();
 		ml.polls.polls();
+		ml.polls.current();
+		ml.polls.badge_count();
 		ml.polls.notify();
+		ml.polls.send_answer();
 	},
 
 
 	poll: function () {
 		$("a[href=#poll]").click(function (){
 			$.mobile.changePage('#page-poll');
-			//Verificar se polls.length > 0 então retorn o .shift()
-			//console.log("######### => "+ml.polls.polls().shift());
 			ml.polls.render();
-			//A cada envio atualiza view
 		});
 	},
 
 	notify: function() {
 		//Modificar label e gerar uma notificação de nova enquete com o plugin phonegap
+		
+	},
+
+	badge_count: function () {
 		$(".badge-polls").text(ml.polls.polls().length);
 	},
 
 	render: function () {
+		ml.flash.clear_this_page('#page-poll');
 		if(ml.polls.polls().length > 0) {
-			var poll = ml.polls.polls().shift();
-		//Renderizar formulário com a questão de enquete
-		console.log(poll);
-		$("#poll-info").html("<h1>"+poll.title+"</h1>");
-		$("#poll-question").html("<p>"+poll.question+"</p>");
-		$("#poll-alternatives").html('');
-		var alt = '<form><label><input type="radio" name="radio-choice-0" id="radio-choice-0a">One</label><label for="radio-choice-0b">Two</label><input type="radio" name="radio-choice-0" id="radio-choice-0b" class="custom"></form>';
-                    
-			$("#poll-alternatives").html(alt);
-		$.each(poll.alternatives, function(index, alternative){ 
-			console.log(alternative);
-			
+
+			var poll = ml.polls.current();
+
+			$("#poll-info").html("<h1>"+poll.title+"</h1>").enhanceWithin();
+			$("#poll-question").html("<p>"+poll.question+"</p>").enhanceWithin();
+			$("#poll-alternatives").html('');
+
+			//(poll.choice_multiple) ? poll.type_input = 'checkbox' : poll.type_input = 'radio'
+			if(poll.choice_multiple) {
+				$.each(poll.alternatives, function(index, alternative){ 
+					var alt = "<label for='"+index+"'>"+alternative+"</label>" +
+					"<input type='checkbox' name='alternative-"+index+"' value="+index+" id='"+index+"'>";
+					$("#poll-alternatives").append(alt).enhanceWithin();
+				});
+			} else {
+				$.each(poll.alternatives, function(index, alternative){ 
+					var alt = "<label for='"+index+"'>"+alternative+"</label>" +
+					"<input type='radio' name='alternative' value="+index+" id='"+index+"'>";
+					$("#poll-alternatives").append(alt).enhanceWithin();
+				});
+			}
+
+			$("#poll-alternatives").append("<button id='send_answer'>Responder Enquete </button>").enhanceWithin();
+
+		} else {
+			$("#poll-info").html('')
+			$("#poll-question").html('')
+			$("#poll-alternatives").html('');
+
+			ml.flash.info('#page-poll', 'Você não possui enquetes para responder!');
+		}
+	},
+
+	add: function (poll) {
+		var polls = JSON.parse(ml.session.getItem("polls-list"));
+		polls.push(poll);
+		ml.session.setItem("polls-list", JSON.stringify(polls));
+	},
+
+	polls: function () {
+		return JSON.parse(ml.session.getItem("polls-list"));
+	},
+
+	remove: function () {
+		var polls = JSON.parse(ml.session.getItem("polls-list"));
+		polls.shift();
+		ml.session.setItem("polls-list", JSON.stringify(polls));
+	}, 
+
+	current: function () {
+		return ml.polls.polls().shift();
+	},
+
+	send_answer: function () {
+		$('#form-poll').submit(function() {
+
+			var form = $(this).serializeJSON();
+			var data = {};
+			data.poll = ml.polls.current().id;
+			data.alternatives = Object.keys(form).map(function(k) { return Number(form[k]) });
+
+			var url = ml.config.url + '/api/poll_answers'
+			console.log(url);
+			socket.post(url, data, function (data, resp) {
+
+				if(data.errors) {
+					ml.flash.error('#page-poll', data.errors.alternatives);
+					return false;
+				}
+				ml.flash.clear_this_page('#page-poll');
+				ml.polls.remove();
+				ml.polls.badge_count();
+				ml.polls.render();
+				ml.flash.success('#page-poll', 'Resposta de enquete enviada com sucesso!');
+				return true;
+			});
+			return false;
 		});
 	}
-},
-
-add: function (poll) {
-	var polls = JSON.parse(ml.session.getItem("polls-list"));
-	polls.push(poll);
-	ml.session.setItem("polls-list", JSON.stringify(polls));
-	console.log('Adicionando Enquente...');
-	console.log(polls);
-},
-
-polls: function () {
-	return JSON.parse(ml.session.getItem("polls-list"));
-},
-
-remove: function () {
-	var polls = JSON.parse(ml.session.getItem("polls-list"));
-	polls.shift();
-	ml.session.setItem("polls-list", JSON.stringify(polls));
-	console.log('Removendo Enquente...');
-	console.log(polls);
-}, 
-
-answer: function () {
-
-}
 }

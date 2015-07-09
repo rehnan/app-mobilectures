@@ -14,7 +14,8 @@ socket.on('welcome-msg', function(message){
 
 socket.on('polls-receive', function(poll){
 	ml.polls.add(poll)
-	ml.polls.notify();
+	ml.polls.badge_count();
+	ml.polls.render();
 });
 
 

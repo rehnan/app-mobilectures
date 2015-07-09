@@ -80,7 +80,10 @@
           <input type="submit" value="Login" id="btn_login">
         </form>
       </div>
-
+      
+      <div data-role="footer">
+        <h1>UTFPR-GP-APPs</h1>
+      </div>
     </div>
 
     <!-- ############################## Sign up Page ##################################### -->
@@ -119,6 +122,10 @@
         </form>
       </div>
 
+
+      <div data-role="footer">
+        <h1>UTFPR-GP-APPs</h1>
+      </div>
     </div>
 
     <!-- ############################# Index Page ###################################### -->
@@ -216,17 +223,10 @@
       <div data-role="main" class="ui-content">
         <form id="form-poll" novalidate>
          <div class="form-group">
-
-          <div id="poll-info" role="main" class="ui-content jqm-content jqm-fullwidth">
-            
-          </div>
-
-          <div id="poll-question" role="main" class="ui-content jqm-content jqm-fullwidth">
-          </div>
-
-          <div id="poll-alternatives">
-           
-          </div>
+          <div id="poll-info" role="main" class="ui-content jqm-content jqm-fullwidth"></div>
+          <div id="poll-question" role="main" class="ui-content jqm-content"></div>
+          <div id="poll-alternatives"></div>
+          <div id="flash-message"></div>
         </div>
       </form>
     </div> 
@@ -244,7 +244,8 @@
   </div>
   <!-- ############################## 404 Page ##################################### -->
 
-  <div id="loading" class="show-page-loading-msg" data-theme="b" data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class="ui-bar ui-shadow ui-overlay-d ui-corner-all"><img src="../_assets/img/jquery-logo.png"><h2>is loading for you ...</h2></span>" data-iconpos="right">
+  <div id="loading" class="show-page-loading-msg" data-theme="b" data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class=\"ui-bar ui-shadow ui-overlay-d ui-corner-all\"><h2>is loading for you ...</h2></span>"
+    <img src="img/loading.gif" data-iconpos="right" />
   </div>
 </body>
 </html>
