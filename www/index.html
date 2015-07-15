@@ -28,6 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/vendor/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="css/polls.css">
 
     <script src="js/vendor/jquery-1.11.2.min.js"></script>
     <script src="js/vendor/jquery.mobile-1.4.5.min.js"></script>
@@ -133,12 +134,12 @@
     <div data-role="page" id="page-logged-1" class="page">
       <div data-role="header">
         <h1>Mobile Lectures</h1>
-        <div data-role="navbar">
+        <a href="#sign-out"  class="ui-btn-right">Sair</a>
+        <div data-role="navbar" class="absol">
           <ul>
             <li><a href="#doubt" >Dúvidas</a></li>
             <li><a href="#poll" >Enquetes<span class="ui-li-count ui-body-b badge-polls"></span></a></li>
             <li><a href="#" >Quizzes</a></li>
-            <li><a href="#sign-out" >Sair</a></li>
           </ul>
         </div>
       </div>
@@ -156,12 +157,12 @@
     <div data-role="page" id="page-doubt" class="page">
       <div data-role="header">
         <h1>Dúvidas</h1>
+        <a href="#sign-out"  class="ui-btn-right">Sair</a>
         <div data-role="navbar">
           <ul>
             <li><a href="#doubt">Dúvidas</a></li>
             <li><a href="#poll" >Enquetes<span class="ui-li-count ui-body-a badge-polls"></span></a></li>
             <li><a href="#" >Quizzes</a></li>
-            <li><a href="#sign-out" >Sair</a></li>
           </ul>
         </div>
       </div>
@@ -210,12 +211,12 @@
     <div data-role="page" id="page-poll" class="page">
       <div data-role="header">
         <h1>Enquetes</h1>
+        <a href="#sign-out"  class="ui-btn-right">Sair</a>
         <div data-role="navbar">
           <ul>
             <li><a href="#doubt">Dúvidas</a></li>
             <li><a href="#poll" >Enquetes<span class="ui-li-count ui-body-b badge-polls"></span></a></li>
             <li><a href="#" >Quizzes</a></li>
-            <li><a href="#sign-out" >Sair</a></li>
           </ul>
         </div>
       </div>
@@ -223,7 +224,7 @@
       <div data-role="main" class="ui-content">
         <form id="form-poll" novalidate>
          <div class="form-group">
-          <div id="poll-info" role="main" class="ui-content jqm-content jqm-fullwidth"></div>
+          <div id="poll-info" class="row"></div>
           <div id="poll-question" role="main" class="ui-content jqm-content"></div>
           <div id="poll-alternatives"></div>
           <div id="flash-message"></div>

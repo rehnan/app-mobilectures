@@ -7,8 +7,6 @@ ml.session.setItem("listener", null);
 ml.session.setItem("authorization", false);
 ml.session.setItem("polls-list", JSON.stringify(new Array()));
 
-
-
 /*
 window.localStorage.setItem("key", "value");
 var keyname = window.localStorage.key(i);

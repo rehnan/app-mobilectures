@@ -20,5 +20,9 @@ ml.flash = {
 
    clear: function () {
       $("div[data-role=main]").find('.flash').remove();
+   },
+
+   clear_this_page: function (page) {
+      $(page).find("div[data-role=main]").find('.flash').remove();
    }
 };
