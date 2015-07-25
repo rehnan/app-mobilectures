@@ -39,12 +39,17 @@ ml.login = {
    sign_in: function () {
       $('#form-sign-in').submit(function() {
 
-         var params = $(this).serializeJSON();
-         var url = ml.config.url + '/api/listeners/join'
+         var account = $(this).serializeJSON();
+         var url = ml.config.url + '/api/listeners/join';
 
-         socket.post(url, params , function (data, jwres) {
+         socket.post(url, account , function (data, jwres) {
             if (data.authorization == "authorized") {
                var header = "Sessão " + data.session.name;
+
+               ml.session.user.save(account);
+               if(!ml.session.polls.all()) { ml.session.polls.new(); } 
+               ml.polls.badge_count();
+               
                $('#page-logged-1').find('div[data-role="header"] h1').html(header);
                ml.forms.clear('#form-sign-in');
                $.mobile.changePage('#page-logged-1');
@@ -65,7 +70,7 @@ ml.login = {
          socket.get(url, {}, function (data, jwres) {
             console.log(data);
             console.log(jwres);
-            ml.session.setItem("listener", null);
+            ml.session.user.destroy();
             $.mobile.changePage('#page-sign-in');
             ml.flash.info("#page-sign-in", "Obrigado por participar desta sessão!");
          });

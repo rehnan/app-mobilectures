@@ -28,6 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/vendor/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/polls.css">
 
     <script src="js/vendor/jquery-1.11.2.min.js"></script>
@@ -37,6 +38,7 @@
     <script src="js/vendor/sails.io.js"></script>
 
     <script src="js/application.js"></script>
+    <script src="js/loader.js"></script>
     <script src="js/polls.js"></script>
     <script src="js/socket.io.connect.js"></script>
     <script src="js/lib/flash.js"></script>
@@ -67,6 +69,12 @@
       </div>
 
       <div data-role="main" class="ui-content">
+        <div class="show-page-loading-msg loading" id="show-page-loading-msg"   data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class='ui-bar ui-shadow ui-overlay-d ui-corner-all'><img src='img/icon3.gif' class='img-loading' height='42' width='42' align='middle'> <br><br><strong> Aguarde... <br> Tendando reconexão com o servidor </strong></span>" ></div>
+
+        <!-- <div id="loading" class="show-page-loading-msg"  data-theme="b" data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class=\"ui-bar ui-shadow ui-overlay-d ui-corner-all\"><h2>is loading for you ...</h2></span>"
+    <img src="img/loading.gif" class="loading" data-iconpos="right" />
+  </div> -->
+
         <form id="form-sign-in">
 
           <label> Chave da sessão </label>
@@ -245,9 +253,7 @@
   </div>
   <!-- ############################## 404 Page ##################################### -->
 
-  <div id="loading" class="show-page-loading-msg" data-theme="b" data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class=\"ui-bar ui-shadow ui-overlay-d ui-corner-all\"><h2>is loading for you ...</h2></span>"
-    <img src="img/loading.gif" data-iconpos="right" />
-  </div>
+  
 </body>
 </html>
 

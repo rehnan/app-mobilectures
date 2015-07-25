@@ -12,6 +12,8 @@ ml.doubts = {
 
  doubt: function () {
   $("a[href=#doubt]").click(function (){
+    if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
+    
     $.mobile.changePage('#page-doubt');
     var url = ml.config.url + "/api/doubts";
     socket.get(url, function (data, jwres) {

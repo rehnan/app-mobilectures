@@ -7,11 +7,11 @@ ml.routes = {
       //ml.routes.logged();
       //ml.routes.pageinit();
    	//ml.routes.beforeAction();
-      ml.routes.sign_in();
-      ml.routes.sign_up();
-      ml.routes.index();
-      ml.routes.doubts();
-      ml.routes.page_not_found();
+      // ml.routes.sign_in();
+      // ml.routes.sign_up();
+      // ml.routes.index();
+      // ml.routes.doubts();
+      // ml.routes.page_not_found();
    },
 
    unlogged: function (page) {

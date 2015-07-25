@@ -2,9 +2,21 @@ var socket = io.connect(ml.config.url);
 
 socket.on("connect", function () {
 	console.log("Socket Connected!");
-	$.mobile.loading('show');
+	ml.loader.show();
 	socket.on('disconnect', function () {
-		console.log("Socket Desconnected!");
+		console.log("## Socket Desconnected!");
+		//Prepara loading
+	});
+
+	socket.on('reconnecting', function () {
+		console.log("### => Socket Reconnecting!");
+		//Exibe loading
+	});
+
+	socket.on('reconnect', function () {
+		console.log("## Socket Reconnect!");
+		//Deslogar e logar novamente
+		//Feacha loading
 	});
 });
 

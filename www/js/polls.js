@@ -13,9 +13,9 @@ ml.polls = {
 		ml.polls.send_answer();
 	},
 
-
 	poll: function () {
 		$("a[href=#poll]").click(function (){
+			if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
 			$.mobile.changePage('#page-poll');
 			ml.polls.render();
 		});
@@ -27,12 +27,12 @@ ml.polls = {
 	},
 
 	badge_count: function () {
-		$(".badge-polls").text(ml.polls.polls().length);
+		$(".badge-polls").text(ml.session.polls.all().length);
 	},
 
 	render: function () {
 		ml.flash.clear_this_page('#page-poll');
-		if(ml.polls.polls().length > 0) {
+		if(ml.session.polls.all().length > 0) {
 
 			var poll = ml.polls.current();
 
@@ -67,23 +67,19 @@ ml.polls = {
 	},
 
 	add: function (poll) {
-		var polls = JSON.parse(ml.session.getItem("polls-list"));
-		polls.push(poll);
-		ml.session.setItem("polls-list", JSON.stringify(polls));
+		ml.session.polls.add(poll); 
 	},
 
 	polls: function () {
-		return JSON.parse(ml.session.getItem("polls-list"));
+		return ml.session.polls.all(); 
 	},
 
 	remove: function () {
-		var polls = JSON.parse(ml.session.getItem("polls-list"));
-		polls.shift();
-		ml.session.setItem("polls-list", JSON.stringify(polls));
+		ml.session.polls.remove(); 
 	}, 
 
 	current: function () {
-		return ml.polls.polls().shift();
+		return ml.session.polls.current(); 
 	},
 
 	send_answer: function () {
@@ -97,9 +93,15 @@ ml.polls = {
 			var url = ml.config.url + '/api/poll_answers'
 			console.log(url);
 			socket.post(url, data, function (data, resp) {
-
+				
 				if(data.errors) {
-					ml.flash.error('#page-poll', data.errors.alternatives);
+					if(data.errors.alternatives) {
+						ml.flash.error('#page-poll', data.errors.alternatives);
+					} else {
+						ml.flash.error('#page-poll', data.errors);
+						ml.polls.remove();
+						ml.polls.badge_count();
+					}
 					return false;
 				}
 				ml.flash.clear_this_page('#page-poll');
