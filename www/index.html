@@ -38,6 +38,7 @@
     <script src="js/vendor/sails.io.js"></script>
 
     <script src="js/application.js"></script>
+    <script src="js/dialogs.js"></script>
     <script src="js/session.js"></script>
     <script src="js/loader.js"></script>
     <script src="js/polls.js"></script>
@@ -71,7 +72,6 @@
 
       <div data-role="main" class="ui-content">
         <form id="form-sign-in">
-
           <label> Chave da sessão </label>
           <input type="text"value="123456" id="session_id" name="session_id">
 
@@ -238,23 +238,29 @@
       <h1>UTFPR-GP-APPs</h1>
     </div>
   </div> 
-  <!-- ############################# End Polls Page ###################################### -->
+  <!-- ############################# End Polls Page 
 
-  <!-- ############################### 404 Page #################################### -->
-  <div data-role="page" id="page-404" class="page">
-    <div data-role="header"> <h1>404 - Page not found!</h1> </div>
-    <div data-role="main" class="ui-content"> <h1> Error 404 - Page not found! </h1> </div>
-    <div data-role="footer"> <h1>UTFPR-GP-APPs</h1> </div>
+
+  <!-- ############################## Div Loading   ####### -->
+
+  <div class="show-page-loading-msg loading" id="show-page-loading-msg"   data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class='ui-bar ui-shadow ui-overlay-d ui-corner-all'><img src='img/icon3.gif' class='img-loading' height='42' width='42' align='middle'> <br><br><span id='msg-loading'></span></span>" >
   </div>
-  <!-- ############################## 404 Page###################### -->
 
-
-  <!-- ############################## Div Loading   ################## -->
-
-   <div class="show-page-loading-msg loading" id="show-page-loading-msg"   data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-inline="true" data-html="<span class='ui-bar ui-shadow ui-overlay-d ui-corner-all'><img src='img/icon3.gif' class='img-loading' height='42' width='42' align='middle'> <br><br><span id='msg-loading'></span></span>" >
-   </div>
+  <!-- ############################## End Div Loading   ####### -->
 
   
+  <!-- Dialog info page -->
+  <div data-role="dialog" id="dialog-info">
+    <div data-role="header">
+      <h1><span id="dialog-header"></span></h1>
+    </div>
+    <div data-role="content">
+      <span id="dialog-message"></span>
+      <a id="dialog-close" class="ui-btn">Ok</a>
+    </div>
+  </div>
+
+  <!-- End Dialog info page -->
 </body>
 </html>
 

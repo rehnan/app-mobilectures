@@ -24,7 +24,7 @@ ml.login = {
                $.mobile.changePage('#page-sign-in');
             },
             error: function(data, status) {
-               console.log(data.responseJSON);
+               //console.log(data.responseJSON);
                ml.flash.error('#page-sign-up', 'Dados incorretos!');
                var errors = data.responseJSON.errors;
                ml.forms.showErrors('#form-sign-up', errors, 'user');
@@ -37,8 +37,9 @@ ml.login = {
    },
 
    sign_in: function () {
-      $('#form-sign-in').submit(function() {
 
+      $('#form-sign-in').submit(function() {
+         
          var account = $(this).serializeJSON();
          var url = ml.config.url + '/api/listeners/join';
 
@@ -64,12 +65,12 @@ ml.login = {
 
    sign_out: function () {
       $("a[href=#sign-out]").click(function (){
-         console.log(this);
+         //console.log(this);
          var url = ml.config.url + "/api/listeners/leave";
 
          socket.get(url, {}, function (data, jwres) {
-            console.log(data);
-            console.log(jwres);
+            //console.log(data);
+            //console.log(jwres);
             ml.session.user.destroy();
             $.mobile.changePage('#page-sign-in');
             ml.flash.info("#page-sign-in", "Obrigado por participar desta sessão!");

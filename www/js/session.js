@@ -44,7 +44,6 @@ ml.session.polls = {
 
 	all: function () {
 		if(!ml.session.user.current()) { return false; }
-		console.log('hoho'+ml.session.user.current().user.email);
 		return JSON.parse(ml.session.storage.getItem(ml.session.user.current().user.email));
 	},
 

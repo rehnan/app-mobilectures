@@ -91,16 +91,17 @@ ml.polls = {
 			data.alternatives = Object.keys(form).map(function(k) { return Number(form[k]) });
 
 			var url = ml.config.url + '/api/poll_answers'
-			console.log(url);
+			
 			socket.post(url, data, function (data, resp) {
 				
 				if(data.errors) {
 					if(data.errors.alternatives) {
 						ml.flash.error('#page-poll', data.errors.alternatives);
 					} else {
-						ml.flash.error('#page-poll', data.errors);
+						ml.dialogs.info('Informação!', '<center> '+data.errors+' </center> <br><br>');
 						ml.polls.remove();
 						ml.polls.badge_count();
+						ml.polls.render();	
 					}
 					return false;
 				}

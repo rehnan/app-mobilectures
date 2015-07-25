@@ -13,7 +13,7 @@ ml.doubts = {
  doubt: function () {
   $("a[href=#doubt]").click(function (){
     if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
-    
+
     $.mobile.changePage('#page-doubt');
     var url = ml.config.url + "/api/doubts";
     socket.get(url, function (data, jwres) {
@@ -22,7 +22,7 @@ ml.doubts = {
          $('#doubts-table tbody').empty();
          var doubts = data.doubts;
          $.each(doubts, function(index, doubt){
-           console.log(doubt);
+           //console.log(doubt);
            $('#doubts-table tbody').append("<tr><td>"+(index+1)+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>").enhanceWithin();;
         })
       });
@@ -52,7 +52,7 @@ formatDate: function(date) {
                 var status_code = jwres.statusCode;
                 //Append new dount in table
                 //append_doubt(data.doubt, data.index);
-                console.log(data.doubt);
+                //console.log(data.doubt);
                 
                 if (data.errors) {
                    ml.flash.error('#page-doubt', 'Dados incorretos!');
@@ -62,7 +62,7 @@ formatDate: function(date) {
                    var index = data.index;
 
                    $('#doubts-table tbody').append("<tr><td>"+index+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>").enhanceWithin();
-                   console.log(data.doubt.id);
+                   //console.log(data.doubt.id);
                    ml.flash.success('#page-doubt', 'Dúvida enviada com sucesso! '+data.doubt.id);
              //ml.flash.clear();
              ml.forms.clear('#form-doubt');
