@@ -50,6 +50,9 @@ ml.login = {
                ml.session.user.save(account);
                if(!ml.session.polls.all()) { ml.session.polls.new(); } 
                ml.polls.badge_count();
+
+               if(!ml.session.quizzes.all()) { ml.session.quizzes.new(); } 
+               ml.quizzes.badge_count();
                
                $('#page-logged-1').find('div[data-role="header"] h1').html(header);
                ml.forms.clear('#form-sign-in');

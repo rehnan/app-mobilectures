@@ -44,9 +44,16 @@ socket.on('welcome-msg', function(message){
 });
 
 socket.on('polls-receive', function(poll){
+	console.log('Pollll');
 	ml.polls.add(poll)
 	ml.polls.badge_count();
 	ml.polls.render();
+});
+
+socket.on('quizzes-receive', function(quiz){
+	console.log('Quizzzz');
+	ml.quizzes.add(quiz);
+	ml.quizzes.badge_count();
 });
 
 

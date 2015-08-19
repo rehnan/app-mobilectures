@@ -33,7 +33,9 @@
 
 .flash.info {
   color: #31708f;
-  background-color: #d9edf7;
+  background-color: #d9edf7;.ui-li-count {
+    margin-left: 3px;
+  }
   border-color: #bce8f1;
 }
 
