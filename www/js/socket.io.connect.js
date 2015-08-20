@@ -54,6 +54,7 @@ socket.on('quizzes-receive', function(quiz){
 	console.log('Quizzzz');
 	ml.quizzes.add(quiz);
 	ml.quizzes.badge_count();
+	ml.quizzes.render();
 });
 
 
