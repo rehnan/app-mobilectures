@@ -258,19 +258,22 @@
     </div>
 
     <div data-role="main" class="ui-content">
-      <form id="form-quiz" novalidate></form>
-      
-      <ul data-role="listview" id="listview-quizzes" data-split-icon="gear" data-split-theme="a" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-      </ul>
 
-      <div class="form-group">
+     <ul data-role="listview" id="listview-quizzes" data-split-icon="gear" data-split-theme="a" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+     </ul>
+     <form id="form-quiz" novalidate>
+       <div class="form-group">
+        <div id="quiz-info" class="row"></div>
+        <div id="quiz-question" role="main" class="ui-content jqm-content"></div>
+        <div id="quiz-alternatives"></div>
         <div id="flash-message"></div>
       </div>
-    </div> 
-    <div data-role="footer">
-      <h1>UTFPR-GP-APPs</h1>
-    </div>
+    </form>
   </div> 
+  <div data-role="footer">
+    <h1>UTFPR-GP-APPs</h1>
+  </div>
+</div> 
   <!-- ############################# End Quiz Page 
 
 

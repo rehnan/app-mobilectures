@@ -23,6 +23,8 @@ ml.session = {
       ml.session.quizzes.add(null);
       ml.session.quizzes.remove();
       ml.session.quizzes.current();
+      ml.session.quizzes.set_current();
+      ml.session.quizzes.find();
    },
 }
 
@@ -45,19 +47,19 @@ ml.session.user = {
 ml.session.polls = {
 	new: function () {
 		if(!ml.session.user.current()) { return false; }
-		return ml.session.storage.setItem('polls_'+ml.session.user.current().user.email, JSON.stringify(new Array()));
+		return ml.session.storage.setItem('polls_'+ml.session.user.current().email, JSON.stringify(new Array()));
 	},
 
 
 	all: function () {
 		if(!ml.session.user.current()) { return false; }
-		return JSON.parse(ml.session.storage.getItem('polls_'+ml.session.user.current().user.email));
+		return JSON.parse(ml.session.storage.getItem('polls_'+ml.session.user.current().email));
 	},
 
 	save: function (polls) {
 		if(!polls) { return false; }
 		console.log('Call Save From Polls');
-		ml.session.storage.setItem('polls_'+ml.session.user.current().user.email, JSON.stringify(polls));
+		ml.session.storage.setItem('polls_'+ml.session.user.current().email, JSON.stringify(polls));
 	},
 
 	add: function (poll) {
@@ -84,19 +86,19 @@ ml.session.polls = {
 ml.session.quizzes = {
 	new: function () {
 		if(!ml.session.user.current()) { return false; }
-		return ml.session.storage.setItem('quizzes_'+ml.session.user.current().user.email, JSON.stringify(new Array()));
+		ml.session.storage.setItem('current_quiz_'+ml.session.user.current().email, JSON.stringify(null));
+		return ml.session.storage.setItem('quizzes_'+ml.session.user.current().email, JSON.stringify(new Array()));
 	},
 
 
 	all: function () {
 		if(!ml.session.user.current()) { return false; }
-		return JSON.parse(ml.session.storage.getItem('quizzes_'+ml.session.user.current().user.email));
+		return JSON.parse(ml.session.storage.getItem('quizzes_'+ml.session.user.current().email));
 	},
 
 	save: function (quizzes) {
 		if(!quizzes) { return false; }
-		console.log('Call Save From Quizzes');
-		ml.session.storage.setItem('quizzes_'+ml.session.user.current().user.email, JSON.stringify(quizzes));
+		ml.session.storage.setItem('quizzes_'+ml.session.user.current().email, JSON.stringify(quizzes));
 	},
 
 	add: function (quiz) {
@@ -113,8 +115,18 @@ ml.session.quizzes = {
 		ml.session.quizzes.save(quizzes);
 	},
 
-	current: function () {
+	current: function (quiz) {
 		if(!ml.session.user.current()) { return false; }
-		return ml.session.quizzes.all().shift();
-	}
+		return JSON.parse(ml.session.storage.getItem('current_quiz_'+ml.session.user.current().email));
+	},
+
+	set_current: function (value) {
+		if(!ml.session.user.current()) { return false; }
+		ml.session.storage.setItem('current_quiz_'+ml.session.user.current().email, JSON.stringify(value));
+	},
+
+	find: function (index) {
+		if(!ml.session.user.current()) { return false; }
+		return ml.session.quizzes.all()[index];
+	} 
 };

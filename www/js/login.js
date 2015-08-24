@@ -46,8 +46,8 @@ ml.login = {
          socket.post(url, account , function (data, jwres) {
             if (data.authorization == "authorized") {
                var header = "Sessão " + data.session.name;
-
-               ml.session.user.save(account);
+               
+               ml.session.user.save(data.listener);
                if(!ml.session.polls.all()) { ml.session.polls.new(); } 
                ml.polls.badge_count();
 
