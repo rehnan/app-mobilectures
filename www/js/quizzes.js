@@ -126,20 +126,33 @@ ml.quizzes = {
 			console.log('Sending answer...');
 			var form = $(this).serializeJSON();
 			var data = {};
+			form.alternative = Number(form.alternative);
+			console.log(form);
 
 			var url = ml.config.url + '/api/quiz_answers'
 			
 			socket.post(url, form, function (data, resp) {
-				/*
-					Tratar quiz questão enviada sem nenhuma seleção
-					Feedback de pontos acumulados da questão
-				*/
+				
+				ml.flash.clear_this_page('#page-quiz');
+				if(data.errors) {
+					if(data.errors.alternative) {
+						console.log('IF');
+						ml.flash.error('#page-quiz', data.errors.alternative[1]);
+					} else {
+						ml.flash.error('#page-quiz', data.errors);
+						ml.quizzes.set_current(null);
+						return ml.quizzes.render_question(null);
+					}
+					return false;
+				}
+
+				ml.flash.success('#page-quiz', 'Resposta enviada com sucesso!');
 				var quiz = ml.quizzes.current();
-					console.log(quiz.questions.length);
-				    quiz.questions.shift();
-					ml.quizzes.set_current(quiz);
-					console.log(ml.quizzes.current().questions.length);
-					return ml.quizzes.render_question(ml.quizzes.current());
+				console.log(quiz.questions.length);
+			    quiz.questions.shift();
+				ml.quizzes.set_current(quiz);
+				console.log(ml.quizzes.current().questions.length);
+				return ml.quizzes.render_question(ml.quizzes.current());
 			});
 			
 			return false;
