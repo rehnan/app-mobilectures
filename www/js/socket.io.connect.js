@@ -6,6 +6,9 @@ socket.on("connect", function () {
 
 	socket.on('disconnect', function () {
 		console.log('Server is died!')
+		//Stop timer to answer questions
+		console.log('Stop Timer! wainting for reconnection')
+		ml.timer.stop();
 		ml.loader.show();
 		$("#msg-loading").html("<strong> Aguarde... <br> Conexão perdida... </strong>").text();
 	});
@@ -18,13 +21,28 @@ socket.on("connect", function () {
 	socket.on('reconnect', function () {
 		var url = ml.config.url + '/api/listeners/join';
 		if(ml.session.user.current()) {
-			socket.post(url, ml.session.user.current(), function (data, jwres) {
+			var auth = {};
+			auth.user = ml.session.user.current();
+			auth.session_id = ml.session.user.current().session_key;
+			socket.post(url, auth, function (data, jwres) {
 	            if (data.authorization == "authorized") {
 	               var header = "Sessão " + data.session.name;
 	               console.log('Logged!!');
-	              $("#msg-loading").html("<strong> Aguarde... <br> Reconexão efetuado com sucesso! </strong>").text();
+	               //Start timer if timer > 0
+	               console.log('Start Timer! Reconnection Success!');
+	               if(ml.timer.current() > 0) {ml.timer.start(true);}
+
+	               $("#msg-loading").html("<strong> Aguarde... <br> Reconexão efetuado com sucesso! </strong>").text();
 	            } else if (data.error) {
-	               console.log('Erro Logged!!');
+	               console.log('Erro Logged!! - Deslogando...');
+	               ml.timer.stop();
+	               ml.timer.reset();
+	               var url = ml.config.url + "/api/listeners/leave";
+			       socket.get(url, {}, function (data, jwres) {
+			            ml.session.user.destroy();
+			            $.mobile.changePage('#page-sign-in');
+			            ml.flash.info("#page-sign-in", "Entre com seu login novamente!");
+			         });
 	            }
 	      	});
 		}

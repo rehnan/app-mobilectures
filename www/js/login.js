@@ -41,13 +41,16 @@ ml.login = {
       $('#form-sign-in').submit(function() {
          
          var account = $(this).serializeJSON();
+         
          var url = ml.config.url + '/api/listeners/join';
 
          socket.post(url, account , function (data, jwres) {
             if (data.authorization == "authorized") {
                var header = "Sessão " + data.session.name;
                
+               data.listener.session_key = data.session.key;
                ml.session.user.save(data.listener);
+
                if(!ml.session.polls.all()) { ml.session.polls.new(); } 
                ml.polls.badge_count();
 
