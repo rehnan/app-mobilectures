@@ -96,7 +96,7 @@ render_question: function (quiz) {
 	$("#quiz-question").html('')
 	$("#quiz-alternatives").html('');
 
-	if(quiz && quiz.questions.length > 0) {
+	if(quiz && quiz.questions && quiz.questions.length > 0) {
 
 		var question = quiz.questions.shift();
 
@@ -120,9 +120,9 @@ render_question: function (quiz) {
 	} else {
 		ml.timer.stop();
 		ml.timer.reset();
-		ml.flash.success('#page-quiz', 'Quiz finalizado com sucesso!');
 		ml.quizzes.set_current(null);
 		ml.quizzes.render();
+		if (quiz !== 'done') { ml.flash.success('#page-quiz', 'Quiz finalizado com sucesso!'); }
 	}
 },
 
@@ -156,9 +156,10 @@ send_answer: function () {
 					ml.timer.stop();
 					ml.timer.reset();
 					console.log('Tempo interrompido - Quiz Encerrado!!');
+					console.log(data.errors);
 					ml.flash.error('#page-quiz', data.errors);
 					ml.quizzes.set_current(null);
-					return ml.quizzes.render_question(null);
+					return ml.quizzes.render_question('done');
 				}
 				return false;
 			}
