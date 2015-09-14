@@ -16,6 +16,7 @@ ml.quizzes = {
 		ml.quizzes.set_current(null);
 		ml.quizzes.find(0);
 		ml.quizzes.badge_count();
+		ml.quizzes.create_ranking(null);
 	},
 
 	quiz: function () {
@@ -76,6 +77,7 @@ select: function () {
 			if (ml.quizzes.current() === null) {
 				console.log('Não existe um current_quiz selecionado!');
 				quiz = ml.quizzes.find(i);
+
 				ml.quizzes.set_current(quiz);
 				ml.flash.clear_this_page('#page-quiz');
 			} else {
@@ -101,7 +103,7 @@ render_question: function (quiz) {
 		var question = quiz.questions.shift();
 
 		$("#quiz-info").html("<span><center><b>Título: </b>"+quiz.title+"</center></span>").enhanceWithin();
-		$("#quiz-info").html("<input type='hidden' name='quiz' value='"+quiz.id+"'><input type='hidden' name='quizquestion' value='"+question.id+"'><input type='hidden' name='listener' value='"+ml.session.user.current().id+"'><input type='hidden' name='correct_alternative' value='"+question.correct_alternative+"'><input type='hidden' name='points' value='"+question.points+"'>");
+		$("#quiz-info").html("<input type='hidden' name='quiz' value='"+quiz.id+"'><input type='hidden' name='quizquestion' value='"+question.id+"'><input type='hidden' name='listener' value='"+ml.session.user.current().id+"'><input type='hidden' name='correct_alternative' value='"+question.correct_alternative+"'><input type='hidden' name='pointing' value='"+question.points+"'>");
 		$("#quiz-question").html("<hr><p>"+question.description+"</p>").enhanceWithin();
 		$("#quiz-alternatives").html('');
 
@@ -134,10 +136,11 @@ send_answer: function () {
 
 		form.alternative = Number(form.alternative);
 		form.correct_alternative = Number(form.correct_alternative);
-		form.points = Number(form.points);
+		form.pointing = Number(form.pointing);
+		form.listener = ml.session.user.current().id
 		//Stopping timer
 		ml.timer.stop();
-		form.timer = ml.timer.current();
+		form.time = ml.timer.current();
 	
 		//console.log('Pontos: '+(Number(form.points) - (ml.timer.current()/100));
 
@@ -207,5 +210,13 @@ all: function () {
 find: function (index) {
 	return ml.session.quizzes.find(index); 
 },
+
+create_ranking: function (quiz) {
+	if(!quiz) { return false; }
+	var url = ml.config.url + '/api/quiz/ranking'
+	socket.post(url, {quiz: quiz.id, listener: ml.session.user.current().id}, function (data, jwres) {
+        console.log(data);
+	});
+}
 
 };

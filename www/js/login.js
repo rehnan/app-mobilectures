@@ -21,6 +21,7 @@ ml.login = {
             data: data,
             success: function(data, status) { 
                ml.forms.clear('#form-sign-up');
+               ml.flash.info('#page-sign-in', 'Conta criada com sucesso!');
                $.mobile.changePage('#page-sign-in');
             },
             error: function(data, status) {

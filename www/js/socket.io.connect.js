@@ -72,6 +72,8 @@ socket.on('quizzes-receive', function(quiz){
 	console.log('Quizzzz');
 	ml.quizzes.add(quiz);
 	ml.quizzes.badge_count();
+	//create ranking here call method
+	ml.quizzes.create_ranking(quiz);
 	ml.quizzes.render();
 });
 
