@@ -6,6 +6,7 @@ ml.login = {
       ml.login.sign_up();
       ml.login.sign_in();
       ml.login.sign_out();
+      ml.login.render_account();
    },
 
    sign_up: function () {
@@ -47,10 +48,12 @@ ml.login = {
 
          socket.post(url, account , function (data, jwres) {
             if (data.authorization == "authorized") {
-               var header = "Sessão " + data.session.name;
+               
                
                data.listener.session_key = data.session.key;
                ml.session.user.save(data.listener);
+               ml.login.render_account();
+               var header = "Sessão: " + data.session.name;
 
                if(!ml.session.polls.all()) { ml.session.polls.new(); } 
                ml.polls.badge_count();
@@ -85,5 +88,10 @@ ml.login = {
 
          return false;
       });
+   },
+
+   render_account: function () {
+      if(!ml.session.user.current()) { return false; }
+      $(".avatar").attr('src', ml.session.user.current().avatar);
    }
 }

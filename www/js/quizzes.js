@@ -23,6 +23,7 @@ ml.quizzes = {
 		$("a[href=#quiz]").click(function (){
 			if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
 			$.mobile.changePage('#page-quiz');
+			ml.login.render_account();
 			$("#listview-quizzes").html('');
 			if(ml.quizzes.current() === null) {
 				ml.flash.clear_this_page('#page-quiz');
@@ -79,6 +80,8 @@ select: function () {
 				quiz = ml.quizzes.find(i);
 
 				ml.quizzes.set_current(quiz);
+				//create ranking here call method
+				ml.quizzes.create_ranking(quiz);
 				ml.flash.clear_this_page('#page-quiz');
 			} else {
 				console.log('Já existe um current_quiz selecionado!')

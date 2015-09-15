@@ -15,6 +15,7 @@ ml.doubts = {
     if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
 
     $.mobile.changePage('#page-doubt');
+    ml.login.render_account();
     var url = ml.config.url + "/api/doubts";
     socket.get(url, function (data, jwres) {
          //console.log(data);

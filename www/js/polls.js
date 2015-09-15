@@ -17,6 +17,7 @@ ml.polls = {
 		$("a[href=#poll]").click(function (){
 			if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
 			$.mobile.changePage('#page-poll');
+			ml.login.render_account();
 			ml.polls.render();
 		});
 	},
