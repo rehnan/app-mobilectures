@@ -24,7 +24,7 @@ ml.doubts = {
          var doubts = data.doubts;
          $.each(doubts, function(index, doubt){
            //console.log(doubt);
-           $('#doubts-table tbody').append("<tr><td>"+(index+1)+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>").enhanceWithin();;
+           $('#doubts-table tbody').append("<tr><td>"+(index+1)+"</td><td>"+doubt.description+"</td><td>"+ml.doubts.formatDate(doubt.createdAt)+"</td><td>"+ml.doubts.bool(doubt.answered)+"</td></tr>").enhanceWithin();
         })
       });
  });

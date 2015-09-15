@@ -44,7 +44,7 @@ ml.quizzes = {
 		$("#listview-quizzes").html('');
 		if(count_quizzes > 0) {
 
-			$.each(ml.quizzes.all(), function(index, quiz){ 
+			$.each(ml.quizzes.all().reverse(), function(index, quiz){ 
 				var li_quiz = "<li class='ui-li-has-alt ui-li-has-thumb ui-first-child'>" +
 				"<a href='#' class='ui-btn'>" +
 				"<img src='img/quiz_image.png'>" +

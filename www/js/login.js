@@ -92,6 +92,8 @@ ml.login = {
 
    render_account: function () {
       if(!ml.session.user.current()) { return false; }
-      $(".avatar").attr('src', ml.session.user.current().avatar);
+      $(".avatar").attr('src', ml.session.user.current().avatar).enhanceWithin();
+      $(".span_user_name").html(ml.session.user.current().name).enhanceWithin();
+      $(".span_user_email").html(ml.session.user.current().email).enhanceWithin();
    }
 }
