@@ -25,6 +25,7 @@ ml.session = {
       ml.session.quizzes.current();
       ml.session.quizzes.set_current();
       ml.session.quizzes.find();
+      ml.session.quizzes.update();
    },
 }
 
@@ -128,5 +129,13 @@ ml.session.quizzes = {
 	find: function (index) {
 		if(!ml.session.user.current()) { return false; }
 		return ml.session.quizzes.all()[index];
-	} 
+	}, 
+
+	update: function (quiz, index) {
+		if(!ml.session.user.current() && !quiz && !index) { return false; }
+		var quizzes = ml.session.quizzes.all();
+		quizzes.splice(index,1)
+		quizzes.splice(index, 0, quiz);
+		ml.session.quizzes.save(quizzes);
+	}
 };

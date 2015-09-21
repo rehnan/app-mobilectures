@@ -15,8 +15,10 @@ ml.quizzes = {
 		ml.quizzes.current();
 		ml.quizzes.set_current(null);
 		ml.quizzes.find(0);
+		ml.quizzes.update();
 		ml.quizzes.badge_count();
 		ml.quizzes.create_ranking(null);
+		ml.quizzes.get_ranking();
 	},
 
 	quiz: function () {
@@ -42,23 +44,32 @@ ml.quizzes = {
 
 		var count_quizzes = ml.quizzes.all().length;
 		$("#listview-quizzes").html('');
+
 		if(count_quizzes > 0) {
 
-			$.each(ml.quizzes.all().reverse(), function(index, quiz){ 
+			$.each(ml.quizzes.all(), function(index, quiz){ 
+				console.log(quiz.status);
+				var button_option = '';
+				var image_quiz = '';
+				if (quiz.status === 'open') {
+					image_quiz = "<img src='img/quiz_image.png'>";
+				 	button_option = "<a href='#' title='Responder Quiz' class='start_quiz ui-btn ui-btn-icon-notext ui-icon-comment ui-btn-a' data-transition='pop' data-index-quiz="+index+" data-index-question='"+JSON.stringify(index)+"'  aria-expanded='false' ></a>";
+				}
+
+				if (quiz.status === 'closed') { 
+					image_quiz = "<img src='img/ranking_award.png'>";
+				 	button_option = "<a href='#' title='Visualizar Estatísticas' data-quiz-id='"+quiz.id+"' data-listener-id='"+ml.session.user.current().id+"' class='get_ranking ui-btn ui-btn-icon-notext ui-icon-star ui-btn-a' data-transition='pop' data-index-quiz="+index+"  aria-expanded='false'></a>"; 
+				}
+
 				var li_quiz = "<li class='ui-li-has-alt ui-li-has-thumb ui-first-child'>" +
 				"<a href='#' class='ui-btn'>" +
-				"<img src='img/quiz_image.png'>" +
+				image_quiz +
 				"<h2>"+(index+1)+" - "+quiz.title+"</h2>" +
 				"<p>"+quiz.description+"</p></a>" +
-				"<a href='#purchase"+quiz.id+"' data-rel='popup' data-position-to='window' data-transition='pop' aria-haspopup='true' aria-owns='purchase' aria-expanded='false' class='ui-btn ui-btn-icon-notext ui-icon-gear ui-btn-a' ></a>" +
-				"</li>"+
-				"<div data-role='popup' id='purchase"+quiz.id+"' data-theme='a' data-overlay-theme='b' class='ui-content' style='max-width:340px; padding-bottom:2em;'>" +
-				    	"<h3>Quiz - "+quiz.title+"</h3>" +
-				"<p>"+quiz.description+"</p>" +
-				    	"<a href='#' data-rel='back' data-index-question='"+JSON.stringify(index)+"' class='start_quiz ui-shadow ui-btn ui-corner-all  ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini'>Iniciar Quiz</a>" +
-				    	"<a href='#' data-rel='back' class='ui-shadow ui-btn ui-corner-all  ui-icon-delete ui-btn-icon-left ui-btn-inline ui-mini'>Delete</a>" +
-				"</div>";
+				button_option +
+				"</li>";
 				$("#listview-quizzes").append(li_quiz).enhanceWithin();
+				//"<a href='#'  aria-haspopup='true' aria-owns='purchase' aria-expanded='true' class='ui-btn ui-btn-icon-notext ui-icon-gear ui-btn-a' title='Purchase album'></a>" +
 			});
 } else {
 	ml.flash.info('#page-quiz', 'Você possui '+count_quizzes+' quizzes para responder!');
@@ -73,12 +84,13 @@ select: function () {
 
 			//Getting index question
 			var i = $(this).data('index-question');
+			var index_quiz = $(this).data('index-quiz');
 
 			//Check by current quiz 
 			if (ml.quizzes.current() === null) {
 				console.log('Não existe um current_quiz selecionado!');
 				quiz = ml.quizzes.find(i);
-
+				quiz.index = index_quiz;
 				ml.quizzes.set_current(quiz);
 				//create ranking here call method
 				ml.quizzes.create_ranking(quiz);
@@ -86,7 +98,10 @@ select: function () {
 			} else {
 				console.log('Já existe um current_quiz selecionado!')
 				quiz = ml.quizzes.current();
+				quiz.index = index_quiz;
 			} 
+
+			
 
 			//Render question
 			ml.quizzes.render_question(quiz);
@@ -106,7 +121,7 @@ render_question: function (quiz) {
 		var question = quiz.questions.shift();
 
 		$("#quiz-info").html("<span><center><b>Título: </b>"+quiz.title+"</center></span>").enhanceWithin();
-		$("#quiz-info").html("<input type='hidden' name='quiz' value='"+quiz.id+"'><input type='hidden' name='quizquestion' value='"+question.id+"'><input type='hidden' name='listener' value='"+ml.session.user.current().id+"'><input type='hidden' name='correct_alternative' value='"+question.correct_alternative+"'><input type='hidden' name='pointing' value='"+question.points+"'>");
+		$("#quiz-info").html("<input type='hidden' name='quiz' value='"+quiz.id+"'><input type='hidden' name='quizquestion' value='"+question.id+"'><input type='hidden' name='listener' value='"+ml.session.user.current().id+"'><input type='hidden' name='correct_alternative' value='"+question.correct_alternative+"'><input type='hidden' name='pointing' value='"+question.points+"'><input type='hidden' name='index' value='"+quiz.index+"'>");
 		$("#quiz-question").html("<hr><p>"+question.description+"</p>").enhanceWithin();
 		$("#quiz-alternatives").html('');
 
@@ -144,7 +159,7 @@ send_answer: function () {
 		//Stopping timer
 		ml.timer.stop();
 		form.time = ml.timer.current();
-	
+
 		//console.log('Pontos: '+(Number(form.points) - (ml.timer.current()/100));
 
 		var url = ml.config.url + '/api/quiz_answers'
@@ -177,8 +192,13 @@ send_answer: function () {
 			var quiz = ml.quizzes.current();
 			console.log(quiz.questions.length);
 			quiz.questions.shift();
+			//Mudando status do quiz caso seja a última questão renderizada
+			if (quiz.questions.length === 0) { 
+				quiz.status = 'closed';
+				ml.quizzes.update(quiz, form.index);
+			}
 			ml.quizzes.set_current(quiz);
-			console.log(ml.quizzes.current().questions.length);
+			
 			return ml.quizzes.render_question(ml.quizzes.current());
 		});
 
@@ -220,6 +240,25 @@ create_ranking: function (quiz) {
 	socket.post(url, {quiz: quiz.id, listener: ml.session.user.current().id}, function (data, jwres) {
         console.log(data);
 	});
+},
+
+get_ranking: function () {
+
+	$(document).on("click", ".get_ranking", function (event) {
+		console.log('Get a statistics, please!');
+
+		var quiz_id = $(this).data("quiz-id");
+		var listener_id = $(this).data("listener-id");
+		var url = ml.config.url + '/api/quiz/'+quiz_id+'/ranking/'+listener_id;
+
+		socket.get(url, function (data, jwres) {
+	        console.log(data);
+		});
+	});
+},
+
+update: function(quiz, index) {
+	return ml.session.quizzes.update(quiz, index); 
 }
 
 };
