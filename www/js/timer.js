@@ -60,6 +60,7 @@ ml.timer = {
 
    reset: function () {
    		if(!ml.session.user.current()) { return false; }
+          $("#timer").html('');
    	    ml.timer.storage.setItem('timer_'+ml.session.user.current().email, JSON.stringify(0));
    },
    

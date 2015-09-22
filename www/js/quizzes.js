@@ -26,6 +26,7 @@ ml.quizzes = {
 			if(!ml.session.user.current()) { return $.mobile.changePage('#page-sign-in'); }
 			$.mobile.changePage('#page-quiz');
 			ml.login.render_account();
+			$("#timer").html('');
 			$("#listview-quizzes").html('');
 			if(ml.quizzes.current() === null) {
 				ml.flash.clear_this_page('#page-quiz');

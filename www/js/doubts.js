@@ -46,6 +46,9 @@ formatDate: function(date) {
   send_doubt: function() {
      $("#form-doubt").submit(function(){
       var params = $(this).serializeJSON();
+      params.doubt.listener = ml.session.user.current().id;
+      params.doubt.session = ml.session.user.current().logged_room;
+      console.log(params);
       var url = ml.config.url + "/api/doubts";
              //alert(JSON.stringify(params));
 
