@@ -249,10 +249,14 @@ get_ranking: function () {
 
 		var quiz_id = $(this).data("quiz-id");
 		var listener_id = $(this).data("listener-id");
+		var listener = ml.session.user.current();
 		var url = ml.config.url + '/api/quiz/'+quiz_id+'/ranking/'+listener_id;
 
-		socket.get(url, function (data, jwres) {
+		socket.get(url, {listener:listener},function (data, jwres) {
 	        console.log(data);
+	        $.mobile.changePage('#page-ranking');
+			ml.login.render_account();
+			ml.ranking.render(data);
 		});
 	});
 },

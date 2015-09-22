@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/polls.css">
     <link rel="stylesheet" href="css/listeners.css">
+    <link rel="stylesheet" href="css/ranking.css">
 
     <script src="js/vendor/jquery-1.11.2.min.js"></script>
     <script src="js/vendor/jquery.mobile-1.4.5.min.js"></script>
@@ -51,6 +52,8 @@
     <script src="js/routes.js"></script>
     <script src="js/login.js"></script>
     <script src="js/doubts.js"></script>
+    <script src="js/ranking.js"></script>
+    
 
 
 
@@ -307,6 +310,58 @@
   </div>
 </div> 
   <!-- ############################# End Quiz Page 
+
+
+  <!-- ############################# Ranking Page ###################################### -->
+
+  <div data-role="page" id="page-ranking" class="page">
+    <div data-role="header">
+      <div class="circle-mask">
+          <img align="middle" src="" alt="Smiley face" class="circle avatar" width="56" height="56" />
+          <div class="info_auth">
+            <span class="span_user_name"></span><br/>
+            <span class="span_user_email"></span><br/>
+          </div>
+        </div>
+      <h1>Ranking | Estatísticas</h1>
+      <a href="#sign-out"  class="ui-btn-right">Sair</a>
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#back">Voltar</a></li>
+        </ul>
+    </div>
+  </div> <!-- /header -->
+
+      <div data-role="main" class="ui-content">
+        <table data-role="table" id="table-ranking-info"  class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="a">
+         <thead>
+         <tr class="ui-bar-d">
+             <th></th>
+         </tr>
+         </thead>
+         <tbody id="ranking-info">
+        
+         </tbody>
+        </table>
+
+       <table data-role="table" id="table-ranking-list"  class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="a">
+         <thead>
+           <tr class="ui-bar-d">
+             <th data-priority="1">Ranking</th>
+             <th>Nome</th>
+             <th>Pontos</th>
+           </tr>
+         </thead>
+         <tbody id="ranking-list">
+        </tbody>
+      </table>
+      </div><!-- /main -->
+  
+  <div data-role="footer">
+    <h1>UTFPR-GP-APPs</h1>
+  </div>
+</div> 
+  <!-- ############################# End Ranking Page 
 
 
   <!-- ############################## Div Loading   ####### -->
