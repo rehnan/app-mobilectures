@@ -122,7 +122,7 @@ render_question: function (quiz) {
 
 		$("#quiz-info").html("<span><center><b>Título: </b>"+quiz.title+"</center></span>").enhanceWithin();
 		$("#quiz-info").html("<input type='hidden' name='quiz' value='"+quiz.id+"'><input type='hidden' name='quizquestion' value='"+question.id+"'><input type='hidden' name='listener' value='"+ml.session.user.current().id+"'><input type='hidden' name='correct_alternative' value='"+question.correct_alternative+"'><input type='hidden' name='pointing' value='"+question.points+"'><input type='hidden' name='index' value='"+quiz.index+"'>");
-		$("#quiz-question").html("<hr><p>"+question.description+"</p>").enhanceWithin();
+		$("#quiz-question").html("<p>"+question.description+"</p><hr>").enhanceWithin();
 		$("#quiz-alternatives").html('');
 
 		$.each(question.alternatives, function(index, alternative){ 
@@ -135,6 +135,7 @@ render_question: function (quiz) {
 		
 		//Start timer to answer question...
 		ml.timer.stop();
+		ml.timer.set_timer(question.time);
 		ml.timer.start(true);
 		console.log('Iniciando Timer...');
 	} else {
@@ -161,7 +162,7 @@ send_answer: function () {
 		form.time = ml.timer.current();
 
 		//console.log('Pontos: '+(Number(form.points) - (ml.timer.current()/100));
-
+		console.log(form);
 		var url = ml.config.url + '/api/quiz_answers'
 
 		socket.post(url, form, function (data, resp) {
@@ -170,7 +171,7 @@ send_answer: function () {
 			if(data.errors) {
 				if(data.errors.alternative) {
 					//Start timer
-					ml.timer.start(true);
+					(ml.timer.current() > 1) ? ml.timer.start(true) : ml.timer.stop();
 					console.log('Erro - Tempo continua...');
 					ml.flash.error('#page-quiz', data.errors.alternative[1]);
 				} else {

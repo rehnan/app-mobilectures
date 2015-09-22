@@ -30,7 +30,7 @@ socket.on("connect", function () {
 	               console.log('Logged!!');
 	               //Start timer if timer > 0
 	               console.log('Start Timer! Reconnection Success!');
-	               if(ml.timer.current() > 0) {ml.timer.start(true);}
+	               (ml.timer.current() > 1) ? ml.timer.start(true) : ml.timer.stop();
 
 	               $("#msg-loading").html("<strong> Aguarde... <br> Reconexão efetuado com sucesso! </strong>").text();
 	            } else if (data.error) {
